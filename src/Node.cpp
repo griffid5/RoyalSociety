@@ -37,11 +37,11 @@ void Node::remove(Node* remove_here)
 	delete remove_here;
 }
 
-
-void Node::reverse(Node* the_sentinel)
+// doubly linked circular
+void Node::reverse(Node* sentinel)
 {
 	Node* tmp;
-	Node* cur = the_sentinel;
+	Node* cur = sentinel;
 	do
 	{
 		tmp = cur->next_;
@@ -50,6 +50,6 @@ void Node::reverse(Node* the_sentinel)
 		
 		// go to next node in list
 		cur = cur->prev_;
-	} while(cur != the_sentinel);
+	} while(cur != sentinel);
 }
 

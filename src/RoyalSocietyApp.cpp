@@ -15,10 +15,6 @@
 #include "cinder/gl/gl.h"
 #include "Node.h"
 #include <Windows.h>
-#include "cinder/Font.h"
-#include "cinder/Text.h"
-#include "cinder/gl/TextureFont.h"
-#include "cinder/gl/Texture.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -28,22 +24,15 @@ class RoyalSocietyApp : public AppBasic {
   public:
 
 	void setup();
-	void mouseDown(MouseEvent event);
-	void keyDown(KeyEvent event);
-	void render();
+	void mouseDown(MouseEvent event);	
 	void update();
 	void draw();
+	void MessageBox();
 
   private:
 	
-	Font default_font_;
-	gl::Texture default_texture_font_;
-	Vec2f default_size_;
-	bool message_box;
-
 	Node* sentinel_;			// Empty node
-
-
+	
 	Vec2i mousePos_;
 	bool leftClicked_;
 
@@ -54,15 +43,14 @@ class RoyalSocietyApp : public AppBasic {
 	
 void RoyalSocietyApp::setup()
 {
-	default_font_ = Font("Helvetica", 18);
-
-
 	sentinel_ = new Node();		// start cicular link list
 	leftClicked_ = false;
 
 	window1 = new Window(Vec2i(50, 50), 200, 200, Color8u(0, 0, 255));
 	window2 = new Window(Vec2i(100, 100), 250, 250, Color8u(0, 255, 0));
 	window3 = new Window(Vec2i(150, 150), 300, 300, Color8u(255, 0, 0));
+	
+
 
 	// Adds the rectangles to the node linked list in the order as listed below.
 	sentinel_->insertAfter(sentinel_, window1);
@@ -70,16 +58,6 @@ void RoyalSocietyApp::setup()
 	sentinel_->insertAfter(sentinel_, window3);
 }
 
-void RoyalSocietyApp::render() {
-	string message = "Welcome to my main menu";
-	TextBox tbox = TextBox().alignment(TextBox::CENTER).font(default_font_).size(Vec2i(512, 511)).text(message);
-	tbox.setColor(Color(1.0f, 1.0f, 1.0f));
-	tbox.setBackgroundColor(ColorA(0.0, 0.0, 0.0));
-	Vec2i sz = tbox.measure();
-	console () << "Height: " << sz.y << endl;
-	default_texture_font_ = gl::Texture(tbox.render());
-
-}
 
 void RoyalSocietyApp::mouseDown( MouseEvent event )
 {
@@ -87,22 +65,13 @@ void RoyalSocietyApp::mouseDown( MouseEvent event )
 	leftClicked_ = true;
 }
 
-void RoyalSocietyApp::keyDown( KeyEvent event) {
-	if (event.getChar() == '?') {
-		message_box = !(message_box);
-	}
-	message_box = true;
-}
-
 void RoyalSocietyApp::update()
 {
+	
 }
 
 void RoyalSocietyApp::draw()
 {
-	if (default_texture_font_ && message_box) {
-	gl::draw(default_texture_font_);
-	}
 	Node* cur = sentinel_->next_;
 	while(cur != sentinel_)
 	{
@@ -111,7 +80,6 @@ void RoyalSocietyApp::draw()
 		// go to next node in list
 		cur = cur->next_;
 	}
-	
 }
 
 CINDER_APP_BASIC(RoyalSocietyApp, RendererGl)
