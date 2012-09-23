@@ -1,3 +1,6 @@
+/*
+Creates a doubly linked list. 
+*/
 #include "Node.h"
 
 Node::Node(void)
