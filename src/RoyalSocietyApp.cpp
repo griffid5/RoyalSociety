@@ -14,6 +14,7 @@
 #include "cinder/app/AppBasic.h"
 #include "cinder/gl/gl.h"
 #include "Node.h"
+#include <Windows.h>
 
 using namespace ci;
 using namespace ci::app;
@@ -26,6 +27,7 @@ class RoyalSocietyApp : public AppBasic {
 	void mouseDown(MouseEvent event);	
 	void update();
 	void draw();
+	void MessageBox();
 
   private:
 	
@@ -38,21 +40,24 @@ class RoyalSocietyApp : public AppBasic {
 	Window* window2;
 	Window* window3;
 };
-
+	
 void RoyalSocietyApp::setup()
 {
 	sentinel_ = new Node();		// start cicular link list
 	leftClicked_ = false;
 
 	window1 = new Window(Vec2i(50, 50), 200, 200, Color8u(0, 0, 255));
-	window2 = new Window(Vec2i(100, 150), 250, 250, Color8u(0, 255, 0));
-	window3 = new Window(Vec2i(150, 200), 300, 300, Color8u(255, 0, 0));
+	window2 = new Window(Vec2i(100, 100), 250, 250, Color8u(0, 255, 0));
+	window3 = new Window(Vec2i(150, 150), 300, 300, Color8u(255, 0, 0));
+	
+
 
 	// Adds the rectangles to the node linked list in the order as listed below.
 	sentinel_->insertAfter(sentinel_, window1);
 	sentinel_->insertAfter(sentinel_, window2);
 	sentinel_->insertAfter(sentinel_, window3);
 }
+
 
 void RoyalSocietyApp::mouseDown( MouseEvent event )
 {

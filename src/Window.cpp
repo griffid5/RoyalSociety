@@ -6,7 +6,7 @@ Window::Window(Vec2i pos, int width, int height, Color8u color)
 	width_ = width;
 	height_ = height;
 	color_ = color;
-	move_ = false;
+	
 }
 
 Window::Window(void)
