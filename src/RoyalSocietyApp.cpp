@@ -44,12 +44,14 @@ class RoyalSocietyApp : public AppBasic {
 	Vec2f default_size_;
 	bool message_box;
 
-	Node* sentinel_;			// Empty node
+	// Create the decoy node
+	Node* sentinel_;			
 
 
 	Vec2i mousePos_;
 	bool leftClicked_;
 
+	// Window method
 	Window* window1;
 	Window* window2;
 	Window* window3;
@@ -65,6 +67,7 @@ void RoyalSocietyApp::setup()
 	sentinel_ = new Node();		// start cicular link list
 	leftClicked_ = false;
 
+	// Create three new rectangles
 	window1 = new Window(Vec2i(50, 50), 200, 200, Color8u(0, 0, 255));
 	window2 = new Window(Vec2i(100, 100), 250, 250, Color8u(0, 255, 0));
 	window3 = new Window(Vec2i(150, 150), 300, 300, Color8u(255, 0, 0));
@@ -74,16 +77,19 @@ void RoyalSocietyApp::setup()
 	sentinel_->insertAfter(sentinel_, window2);
 	sentinel_->insertAfter(sentinel_, window3);
 }
-
+/*
+This method does not work but it is designed to display a menu at the beginning 
+of the program and explain the controls to the user.
+*/
 void RoyalSocietyApp::render() {
-	string message = "Welcome to my main menu";
+	string message = "Welcome to my main menu ! \n 1) The ? displays or gets rid of the menu.";
 	TextBox tbox = TextBox().alignment(TextBox::CENTER).font(default_font_).size(Vec2i(512, 511)).text(message);
 	tbox.setColor(Color(1.0f, 1.0f, 1.0f));
 	tbox.setBackgroundColor(ColorA(0.0, 0.0, 0.0));
 	Vec2i sz = tbox.measure();
 	console () << "Height: " << sz.y << endl;
 	default_texture_font_ = gl::Texture(tbox.render());
-
+	message_box = true;
 }
 
 void RoyalSocietyApp::mouseDown( MouseEvent event )
@@ -91,7 +97,10 @@ void RoyalSocietyApp::mouseDown( MouseEvent event )
 	mousePos_ = event.getPos();
 	leftClicked_ = true;
 }
-
+/*
+This method evaluates the users input and does a certain thing 
+based on that input.
+*/
 void RoyalSocietyApp::keyDown( KeyEvent event) {
 	if (event.getChar() == '?') {
 		message_box = !(message_box);
@@ -106,8 +115,9 @@ void RoyalSocietyApp::update()
 
 void RoyalSocietyApp::draw()
 {
-	if (default_texture_font_ && message_box) {
-	gl::draw(default_texture_font_);
+	if (default_texture_font_ && message_box == true) {
+		render();
+		gl::draw(default_texture_font_);
 	}
 	Node* cur = sentinel_->next_;
 	while(cur != sentinel_)
