@@ -53,6 +53,7 @@ void Node::remove(Node* remove_here)
 This method reverses the order of the nodes in the list.
 @param sentinel the decode node in the list
 */
+//@note This code is a reflection of that from class (CSE 274).
 void Node::reverse(Node* sentinel)
 {
 	Node* tmp;
