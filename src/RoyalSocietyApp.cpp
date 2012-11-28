@@ -81,6 +81,7 @@ void RoyalSocietyApp::setup()
 This method does not work but it is designed to display a menu at the beginning 
 of the program and explain the controls to the user.
 */
+// @note The general idea of this method comes from marshast/TheRoyalSociety. 
 void RoyalSocietyApp::render() {
 	string message = "Welcome to my main menu ! \n 1) The ? displays or gets rid of the menu.";
 	TextBox tbox = TextBox().alignment(TextBox::CENTER).font(default_font_).size(Vec2i(512, 511)).text(message);
